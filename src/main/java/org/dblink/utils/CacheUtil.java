@@ -16,9 +16,14 @@ public class CacheUtil {
 			throws NumberFormatException, ConfigurationException, IOException {
 		if (nodeList == null) {
 			nodeList = new ArrayList<String>();
-			nodeList = FileUtil.getAll(
+			List<String> tempList = FileUtil.getAll(
 					new File(IniUtil.getItem(SysCfg.configPath, "sysinfo",
 							"rootpath")), 0, true);
+			List<String> markDisShowList = JedisUtil.getInstance().getMarkDisShowList();
+			for(String temp : tempList) {
+				if(!markDisShowList.contains(temp))
+					nodeList.add(temp);
+			}
 		}
 		return nodeList;
 	}

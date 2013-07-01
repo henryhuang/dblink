@@ -30,7 +30,11 @@ public class FileUtil {
 				filePathList.addAll(getAll(file, level, getNew));
 			} else {
 				if(matchFile(file, getNew, lastUpdateTime)) {
-					filePathList.add(getRelativePath(root, file.getAbsolutePath()));
+					String relativePath = getRelativePath(root, file.getAbsolutePath());
+					if(JedisUtil.getInstance().getMarkDisShowList().contains(relativePath)) {
+						continue;
+					}
+					filePathList.add(relativePath);
 				}
 			}
 		}

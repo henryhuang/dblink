@@ -2,6 +2,7 @@ package org.dblink.action;
 
 import org.dblink.service.ServiceGenOne;
 import org.dblink.utils.CacheUtil;
+import org.dblink.utils.JedisUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -55,8 +56,9 @@ public class ServiceAction extends ActionSupport {
 	}
 	
 	public String markFile() throws Exception {
-		
-		// TODO 存放到数据库里面
+		// 存放到数据库里面
+		JedisUtil util = new JedisUtil();
+		util.markDisShowStatus(toMarkFile);
 		CacheUtil.removeIt(toMarkFile);
 		return SUCCESS;
 	}
