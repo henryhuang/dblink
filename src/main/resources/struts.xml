@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="defaultPackage" extends="struts-default">
+		<action name="test" class="org.dblink.action.IndexAction">
+			<result name="success">/test_success.jsp</result>
+		</action>
+		<action name="genall" class="org.dblink.action.GenAllAction"
+			method="genAll">
+			<result name="success">/genall_result.jsp</result>
+		</action>
+		<action name="genone" class="org.dblink.action.ServiceAction"
+			method="genOne">
+			<result name="success">/genone_result.jsp</result>
+		</action>
+		<action name="getnew" class="org.dblink.action.GenNewAction"
+			method="getNew">
+			<result name="success">/getnew_result.jsp</result>
+		</action>
+		<action name="gennew" class="org.dblink.action.GenNewAction"
+			method="genNew">
+			<result name="success">/gennew_result.jsp</result>
+		</action>
+	</package>
+
+	<package name="json" extends="struts-default,json-default"
+		namespace="/">
+		<action name="getnewjson" class="org.dblink.action.GenNewAction"
+			method="getNewJSON">
+			<result type="json">
+				<param name="root">jsonBeanList</param>
+			</result>
+		</action>
+		<action name="genonejson" class="org.dblink.action.ServiceAction"
+			method="genOneJSON">
+			<result type="json">
+				<param name="root">oneUrl</param>
+			</result>
+		</action>
+		<action name="markfile" class="org.dblink.action.ServiceAction" method="markFile">
+			<result type="json">
+			</result>
+		</action>
+	</package>
+</struts>

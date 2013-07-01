@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+	<TITLE> ZTREE DEMO - beforeClick / onClick</TITLE>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="css/ztree.css" type="text/css">
+	<link rel="stylesheet" href="css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ztree.core-3.5.min.js"></script>
+	<SCRIPT type="text/javascript">
+		<!--
+		var setting = {
+			data: {
+				key: {
+					title:"t"
+				},
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick,
+				onClick: onClick
+			}
+		};
+
+		var log, className = "dark";
+		function beforeClick(treeId, treeNode, clickFlag) {
+			className = (className === "dark" ? "":"dark");
+			return (treeNode.click != false);
+		}
+		function onClick(event, treeId, treeNode, clickFlag) {
+			showLog(treeNode.fullPath, treeNode.folder);
+		}
+
+		function showLog(str, isFolder) {
+			if (!log)
+				log = $("#log");
+			var url = getValues('genonejson?relpath=' + str);
+			var html = "<h4>相对路径：" + str;
+			if (!isFolder) {
+				html = html
+						+ "</h4><br/>"
+						+ "<fieldset><legend>Dropbox外链</legend>"
+						+ "<input type='text' value=" + url + " id='dropboxurl'>" + "</input></fieldset>"
+						+ "<br/><a href='#' onClick='stickUrl(\"dropboxurl\")' class='btn'>粘贴</a>&nbsp&nbsp&nbsp<button class='btn btn-primary' onClick='markit(\"" + str + "\")'>标记</buton>";
+			}
+			log.html(html);
+		}
+		
+		function markit(filePath) {
+			$.ajax({
+				url : 'markfile?toMarkFile=' + filePath,
+				type : 'get',
+				async : false,
+				cache : false,
+				success : function(data) {
+					var zNodes = getValues('getnewjson');
+					$.fn.zTree.init($("#treeul"), setting, zNodes);
+					var alertHtml = getMarkResult(filePath);
+					$('#right-div').prepend(alertHtml);
+					$("#log").text('');
+				}
+			});
+		}
+		
+		function stickUrl(contentid) {
+			var content = document.getElementById(contentid);
+			content.select();
+		}
+		
+		function getValues(url) {
+			var result = null;
+			$.ajax({
+				url : url,
+				type : 'get',
+				dataType : 'json',
+				async : false,
+				cache : false,
+				success : function(data) {
+					result = data;
+				}
+			});
+			return result;
+		}
+
+		function getMarkResult(filePath) {
+			var html = '<div class="alert"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>成功标记 ' + filePath + ' 为不显示状态！</strong></div>';
+			return html;
+		}
+		
+		function copyData(contentId) { 
+			var copyText = $('#dropboxurl').text();
+			window.clipboardData.setData("Text",copyText); 
+			alert('成功粘贴！' + $('#dropboxurl').text());
+		}
+		
+		$(document).ready(function() {
+			var zNodes = getValues('getnewjson');
+			$.fn.zTree.init($("#treeul"), setting, zNodes);
+		});
+	//-->
+	</SCRIPT>
+</HEAD>
+
+<BODY  data-spy="scroll" data-target=".bs-docs-sidebar">
+	<div class="container" id="main-div">
+		<fieldset>
+			<legend>所有的新文件</legend>
+			<div class="span3">
+				<ul id="treeul" class="ztree"></ul>
+			</div>
+			<div class="span7" id="right-div">
+				<div id="log" class="log"></div>
+			</div>
+		</fieldset>
+	</div>
+</BODY>
+</HTML>

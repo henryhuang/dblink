@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>index.html</title>
+
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<meta http-equiv="content-type" content="text/html; charset=GB18030">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="css/bootstrap-responsive.min.css">
+
+</head>
+
+<body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+	<div class="span8">
+
+		<div class="tabbable">
+
+			<!-- 			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#tab1" data-toggle="tab">多文件</a>
+				</li>
+				<li>
+					<a href="#tab2" data-toggle="tab">单文件</a>
+				</li>
+			</ul> -->
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab1">
+					<form action="genall" class="form-inline">
+						<fieldset>
+							<legend>多文件</legend>
+							<input type="text" name="rootpath" id="rootpath"
+								class="input-small" placeholder="根目录" />
+							<button type="submit" class="btn">获取文件</button>
+							<label>如：images/</label>
+						</fieldset>
+					</form>
+				</div>
+				<div class="tab-pane active" id="tab2">
+					<form action="genone" class="form-inline">
+						<fieldset>
+							<legend>单文件</legend>
+							<input type="text" name="relpath" id="relpath"
+								placeholder="文件相对路径" />
+							<button type="submit" class="btn">生成</button>
+						</fieldset>
+					</form>
+				</div>
+				<div class="tab-pane active" id="tab3">
+					<fieldset>
+						<legend>获取新文件</legend>
+						<div>
+						<form action="getnew" class="form-inline">
+							<button type="submit" class="btn">获取</button>
+							</form>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
